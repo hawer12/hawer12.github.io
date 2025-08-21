@@ -1,0 +1,89 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(135deg, #f0f4f8, #d9e4f5);
+color: #0c0101;
+line-height: 1.6;
+}
+
+header {
+background-color: #0f0f0f;
+color: rgb(252, 252, 252);
+padding: 40px 20px;
+text-align: center;
+}
+
+.container {
+max-width: 1000px;
+margin: 40px auto;
+background: white;
+padding: 40px;
+border-radius: 12px;
+box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.profile {
+display: flex;
+flex-wrap: wrap;
+align-items: center;
+gap: 30px;
+}
+
+.profile-img {
+flex: 1;
+min-width: 200px;
+max-width: 250px;
+}
+
+.profile-img img {
+width: 100%;
+border-radius: 50%;
+border: 2px solid #f2f3f7;
+}
+
+.profile-info {
+flex: 2;
+}
+
+.profile-info h2 {
+color: #111111;
+margin-bottom: 15px;
+}
+
+section {
+margin-top: 40px;
+}
+
+.section-title {
+font-size: 1.5em;
+color: #0c0c0c;
+margin-bottom: 10px;
+}
+
+ul {
+padding-left: 20px;
+}
+
+li {
+margin-bottom: 8px;
+}
+
+footer {
+text-align: center;
+padding: 20px;
+background-color: #0f0f0f;
+color: white;
+margin-top: 40px;
+}
+
+@media (max-width: 768px) {
+.profile {
+flex-direction: column;
+text-align: center;
+}
+}
