@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grupos de Investigación</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="container py-4">
+  <h1 class="mb-4 text-center">Gestión de Grupos de Investigación</h1>
+
+  <!-- Listado de grupos (GET) -->
+  <h2>Listado de Grupos</h2>
+  <button id="btnCargar" class="btn btn-primary mb-3">Cargar Grupos</button>
+  <ul id="listaGrupos" class="list-group mb-4"></ul>
+
+  <!-- Formulario registrar docente (POST) -->
+  <h2>Registrar Docente</h2>
+  <form id="formDocente" class="mb-4">
+    <!-- Campo nombre docente -->
+    <input type="text" class="form-control mb-2" name="nombre" placeholder="Nombre docente" required>
+
+    <!-- Campo formación académica -->
+    <input type="text" class="form-control mb-2" name="formacion" placeholder="Formación académica" required>
+
+    <!-- Campo horario de atención -->
+    <input type="text" class="form-control mb-2" name="horario" placeholder="Horario de atención" required>
+
+    <!-- Campo grupo -->
+    <select class="form-control mb-2" name="grupo">
+      <option value="COMBA I+D">COMBA I+D</option>
+      <option value="GIEIAM">GIEIAM</option>
+    </select>
+
+    <button type="submit" class="btn btn-success">Registrar Docente</button>
+  </form>
+
+  <!-- Formulario estudiante (POST simulado) -->
+  <h2>Vincular Estudiante a Semillero (COMBA I+D)</h2>
+  <form id="formEstudiante" class="mb-4">
+    <input type="text" class="form-control mb-2" name="nombre" placeholder="Nombre estudiante" required>
+    <input type="text" class="form-control mb-2" name="codigo" placeholder="Código estudiante" required>
+    <input type="text" class="form-control mb-2" name="carrera" placeholder="Carrera" required>
+    <select class="form-control mb-2" name="semillero">
+      <option value="Comba">Comba</option>
+      <option value="Informa">Informa</option>
+    </select>
+    <button type="submit" class="btn btn-warning">Vincular Estudiante</button>
+  </form>
+
+  <!-- Formulario actividad semillero (POST simulado) -->
+  <h2>Agregar Actividad a Semillero</h2>
+  <form id="formActividad" class="mb-4">
+    <select class="form-control mb-2" name="tipo">
+      <option value="Taller">Taller</option>
+      <option value="Conferencia">Conferencia</option>
+      <option value="Evento">Evento</option>
+    </select>
+    <input type="date" class="form-control mb-2" name="fecha" required>
+    <input type="time" class="form-control mb-2" name="hora" required>
+    <input type="number" class="form-control mb-2" name="limite" placeholder="Límite de asistentes" required>
+    <textarea class="form-control mb-2" name="resumen" placeholder="Resumen de la actividad" required></textarea>
+    <button type="submit" class="btn btn-info">Agregar Actividad</button>
+  </form>
+
+  <!-- Lista de actividades -->
+  <h3>Actividades Registradas</h3>
+  <ul id="listaActividades" class="list-group"></ul>
+
+  <script>
+    const lista = document.getElementById("listaGrupos");
+    const btnCargar = document.getElementById("btnCargar");
+    const formDocente = document.getElementById("formDocente");
+    const formEstudiante = document.getElementById("formEstudiante");
+    const formActividad = document.getElementById("formActividad");
+    const listaActividades = document.getElementById("listaActividades");
+
+    // -----------------------
+    // GET - cargar grupos
+    // -----------------------
+    btnCargar.addEventListener("click", async () => {
+      try {
+        // Simulación de GET hacia JSONPlaceholder
+        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+        const data = await response.json();
+
+        // Limpiar lista
+        lista.innerHTML = "";
+
+        // Mostrar solo dos grupos fijos
+        const grupos = [
+          { nombre: "COMBA I+D", director: data[0].name, objetivos: "Desarrollo de software e innovación" },
+          { nombre: "GIEIAM", director: data[1].name, objetivos: "Estudios en ingeniería aplicada y matemática" }
+        ];
+
+        grupos.forEach(g => {
+          const li = document.createElement("li");
+          li.className = "list-group-item";
+          li.innerHTML = `<strong>${g.nombre}</strong><br>Director: ${g.director}<br>Objetivos: ${g.objetivos}`;
+          lista.appendChild(li);
+        });
+      } catch (error) {
+        console.error("Error cargando grupos:", error);
+      }
+    });
+
+    // -----------------------
+    // POST - registrar docente
+    // -----------------------
+    formDocente.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(formDocente);
+      const docente = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          body: JSON.stringify(docente),
+          headers: { "Content-type": "application/json; charset=UTF-8" }
+        });
+
+        const data = await response.json();
+        alert("Docente registrado: " + JSON.stringify(data));
+        formDocente.reset();
+      } catch (error) {
+        console.error("Error registrando docente:", error);
+      }
+    });
+
+    // -----------------------
+    // POST - vincular estudiante
+    // -----------------------
+    formEstudiante.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(formEstudiante);
+      const estudiante = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          body: JSON.stringify(estudiante),
+          headers: { "Content-type": "application/json; charset=UTF-8" }
+        });
+
+        const data = await response.json();
+        alert("Estudiante vinculado: " + JSON.stringify(data));
+        formEstudiante.reset();
+      } catch (error) {
+        console.error("Error vinculando estudiante:", error);
+      }
+    });
+
+    
+    // POST - agregar actividad
+    
+    formActividad.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(formActividad);
+      const actividad = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+          method: "POST",
+          body: JSON.stringify(actividad),
+          headers: { "Content-type": "application/json; charset=UTF-8" }
+        });
+
+        const data = await response.json();
+
+        // Mostrar actividad en la lista
+        const li = document.createElement("li");
+        li.className = "list-group-item";
+        li.innerHTML = `<strong>${data.tipo}</strong> - ${data.fecha} ${data.hora}<br>
+                        Límite: ${data.limite} <br>
+                        Resumen: ${data.resumen}`;
+        listaActividades.appendChild(li);
+
+        formActividad.reset();
+      } catch (error) {
+        console.error("Error registrando actividad:", error);
+      }
+    });
+  </script>
+</body>
+</html>

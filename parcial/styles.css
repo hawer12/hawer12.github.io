@@ -1,0 +1,66 @@
+body {
+  background-color: #f8f9fa; /* Fondo suave */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Títulos */
+h1, h2, h3 {
+  color: #1a1a1a;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+/* Botones personalizados */
+.btn-primary {
+  background-color: #0a0a0a;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #004080;
+}
+
+.btn-success {
+  background-color: #141414;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #1e7e34;
+}
+
+.btn-warning {
+  background-color: #1a1919;
+  border: none;
+  color: #fdfafa;
+}
+
+.btn-warning:hover {
+  background-color: #f1f1ef;
+}
+
+.btn-info {
+  background-color: #f0f4f5;
+  border: none;
+}
+
+.btn-info:hover {
+  background-color: #eff1f1;
+}
+
+/* Formularios */
+form {
+  background: #ffffff;
+  padding: 1.2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px black
+}
+
+/* Lista de grupos y actividades */
+.list-group-item {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  margin-bottom: 0.5rem;
+  border-radius: 6px;
+}
